@@ -2,25 +2,24 @@
 #define ENTITY_H
 #include <SFML/Graphics.hpp>
 #include <string>
+#include "Healthbar.h"
 
 class Entity : public sf::Sprite {
     public:
-    Entity(sf::Vector2f position_, double speed_, std::string imagepath);
+    Entity(sf::Vector2f position_, double speed_, std::string imagepath, int health);
     void drawEntity(sf::RenderWindow& window) const; 
     void moveEntity(float xpos, float ypos);    
     double getSpeed() const;
     double getVerticalSpeed() const;
     int getHealth();
-    void setHealth(int health);
-    //void move(sf::Vector2f movement_vector);
-    //void setPosition(sf::Vector2f coordinates);
-       // sf::Vector2f getPosition();
-       //  double getSpeed();
-   // void setSpeed(double speed_);
+    void setHealthBar();
+    void setHealth(int health_);
 
     private:
+    Healthbar healthbar;
     sf::Texture texture;
     double speed;
+    int maxHealth;
     int health;
     void setEntityTexture(std::string imagepath);
     void setEntityOrigin();

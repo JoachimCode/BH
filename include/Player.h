@@ -6,7 +6,7 @@
 
 class Player : public Entity {
     public:
-    Player(sf::Vector2f position_, double speed_, std::string imagepath);
+    Player(sf::Vector2f position_, double speed_, std::string imagepath, int health);
     void shoot(std::vector<Bullet*>& bulletBuffer, sf::Vector2f targetPosition);
     private:
 };

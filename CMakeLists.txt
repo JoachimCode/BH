@@ -16,6 +16,7 @@ set(SOURCES
     entities/Player.cpp
     entities/Enemy.cpp
     utility/TrajectoryCalculator.cpp
+    entities/Healthbar.cpp
 )
 
 set(HEADERS
@@ -27,6 +28,7 @@ set(HEADERS
     include/Enemy.h
     include/TrajectoryCalculator.h
     include/TrajectoryData.h
+    include/Healthbar.h
     )
 
 add_executable(shooter ${SOURCES} ${HEADERS})

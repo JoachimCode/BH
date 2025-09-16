@@ -8,6 +8,7 @@
 #include <chrono>
 #include <ctime>
 #include "Enemy.h"
+#include "CollisionDetector.h"
 
 //https://github.com/SFML/SFML/wiki/Source%3A-Letterbox-effect-using-a-view
 sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight) {
@@ -45,15 +46,16 @@ sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight) {
     return view;
 }
 
+
 int main() {
     auto lastShot = std::chrono::high_resolution_clock::now();
     bool isCooldown = false;
     std::vector<Enemy*> enemyBuffer;
 
-    Enemy* enemy = new Enemy(sf::Vector2f(500,500), 2, "resources/sprites/player.png");
+    Enemy* enemy = new Enemy(sf::Vector2f(500,500), 2, "resources/sprites/player.png", 10);
     enemyBuffer.push_back(enemy);
 
-    Player player(sf::Vector2f(100,100), 8, "resources/sprites/player.png");
+    Player player(sf::Vector2f(100,100), 8, "resources/sprites/player.png", 100);
     std::vector<Bullet*> bulletBuffer;
     sf::Sprite wallpaper;
     sf::Texture wallpaper_texture;
@@ -130,18 +132,33 @@ int main() {
 
         for(Enemy* enemy: enemyBuffer)
         {
+            enemy->setHealthBar();
             enemy->drawEntity(window);
         }
 
         for(Bullet* bullet : bulletBuffer)
         {
+            if(bullet->getGlobalBounds().getPosition().x > 1000 || bullet->getGlobalBounds().getPosition().y > 1000)
+            {
+                bulletBuffer.erase(std::remove(bulletBuffer.begin(), bulletBuffer.end(), bullet), bulletBuffer.end());
+                delete bullet;
+            }
+            else 
+            {
             double speed = bullet->getSpeed();
             bullet->move(bullet->getTrajectory());
             bullet->drawEntity(window);
+
+            if(detectCollision(bullet, enemy)) {
+                enemyBuffer.erase(enemyBuffer.begin());
+                delete enemy;
+            }
         }
+    }
 
 
         window.setView(view);
+        player.setHealthBar();
         window.draw(player);
         window.display();
     }

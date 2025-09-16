@@ -4,7 +4,7 @@
 
 class Enemy : public Entity{
     public:
-    Enemy(sf::Vector2f position, double speed, std::string imagepath);
+    Enemy(sf::Vector2f position, double speed, std::string imagepath, int health);
 
     private:
 };

@@ -3,6 +3,11 @@
 #include "Entity.h"
 
 
-static bool detectCollision(Entity firstEntity, Entity secondEntity);
+inline bool detectCollision(Entity* firstEntity, Entity* secondEntity) {
+    sf::FloatRect firstBoundingBox = firstEntity->getGlobalBounds();
+    sf::FloatRect secondBoundingBox = secondEntity->getGlobalBounds();
+
+    return firstBoundingBox.intersects(secondBoundingBox);
+};
 
 #endif
