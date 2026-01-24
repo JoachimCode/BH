@@ -3,7 +3,7 @@ project(shooter)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(CMAKE_PREFIX_PATH "/Users/joachim/Resources/libraries/SFML-2.6.2-install/lib/cmake/SFML/")
+set(CMAKE_PREFIX_PATH "C:\\Users\\joach\\programming\\SFML\\lib\\cmake\\SFML")
 
 find_package(SFML 2.6 REQUIRED COMPONENTS graphics window system)
 include_directories(include)

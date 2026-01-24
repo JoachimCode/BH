@@ -1,4 +1,5 @@
 #include "TrajectoryCalculator.h"
+#include <cmath>
 const int RIGHTANGLE = 90;
 const float RADIANCOEF = 57.3;
 

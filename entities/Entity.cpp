@@ -1,7 +1,8 @@
 #include "Entity.h"
 #include <iostream>
+#include <cmath>
 
-Entity::Entity(sf::Vector2f position_, double speed_, std::string imagepath, int health) : speed(speed_), maxHealth(health) {
+Entity::Entity(sf::Vector2f position_, double speed_, std::string imagepath, int health) : speed(speed_), maxHealth(health), health(health) {
     setPosition(position_);
     setEntityTexture(imagepath);
     setEntityOrigin();
@@ -52,9 +53,9 @@ double Entity::getVerticalSpeed() const {
 }
 
 void Entity::setHealthBar() {
-    sf::Vector2f bottomleft = sf::Vector2f(getPosition().x, getPosition().y + 30);
-    sf::Vector2f topRight = sf::Vector2f(bottomleft.x + getLocalBounds().getSize().x, bottomleft.y + 30);
-    healthbar.setHealthbar(health/maxHealth, bottomleft, topRight);
+    sf::Vector2f bottomleft = sf::Vector2f(getPosition().x - getLocalBounds().getSize().x/2, getPosition().y - getLocalBounds().getSize().y + 50);
+    sf::Vector2f topRight = sf::Vector2f(bottomleft.x + getLocalBounds().getSize().x, bottomleft.y + 10);
+    healthbar.setHealthbar((health/maxHealth), bottomleft, topRight);
 };
 
 

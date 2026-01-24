@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "Healthbar.h"
+#include <chrono>
 
 class Entity : public sf::Sprite {
     public:
@@ -14,6 +15,9 @@ class Entity : public sf::Sprite {
     int getHealth();
     void setHealthBar();
     void setHealth(int health_);
+    std::chrono::_V2::system_clock::time_point lastHit;
+    
+
 
     private:
     Healthbar healthbar;
@@ -21,6 +25,7 @@ class Entity : public sf::Sprite {
     double speed;
     int maxHealth;
     int health;
+
     void setEntityTexture(std::string imagepath);
     void setEntityOrigin();
 
