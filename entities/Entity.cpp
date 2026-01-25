@@ -1,6 +1,7 @@
 #include "Entity.h"
 #include <iostream>
 #include <cmath>
+#include <sstream>
 
 Entity::Entity(sf::Vector2f position_, double speed_, std::string imagepath, int health) : speed(speed_), maxHealth(health), health(health) {
     setPosition(position_);
@@ -59,3 +60,9 @@ void Entity::setHealthBar() {
 };
 
 
+std::ostringstream Entity::getDebugInfo() {
+    std::ostringstream ss;
+    ss << "Debug \n" << "Health: " << health << "\n Maxhealth: " << maxHealth;
+    ss << "\n Health percentage: " << health/maxHealth;
+    return ss;
+};

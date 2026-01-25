@@ -16,6 +16,8 @@ class Entity : public sf::Sprite {
     void setHealthBar();
     void setHealth(int health_);
     std::chrono::_V2::system_clock::time_point lastHit;
+
+    std::ostringstream getDebugInfo();
     
 
 
@@ -23,8 +25,8 @@ class Entity : public sf::Sprite {
     Healthbar healthbar;
     sf::Texture texture;
     double speed;
-    int maxHealth;
-    int health;
+    float maxHealth;
+    float health;
 
     void setEntityTexture(std::string imagepath);
     void setEntityOrigin();

@@ -11,6 +11,28 @@
 #include "CollisionDetector.h"
 #include <bits/stdc++.h>
 
+bool debug = true;
+
+void drawDebugText(Entity* entity, sf::RenderWindow& window) {
+    sf::Text t;
+    t.setCharacterSize(24);
+    t.setPosition(10.f, 10.f);
+
+    sf::Font font;
+    //path to font
+    font.loadFromFile("C:\\Windows\\Fonts\\lucon.ttf");
+    t.setFont(font);
+    t.setFillColor(sf::Color::Red);
+
+    std::ostringstream ss;
+ //   ss << "DEBUG" << "\n" << 
+    ss = entity->getDebugInfo();
+
+    t.setString(ss.str());
+    window.draw(t);
+}
+
+
 //https://github.com/SFML/SFML/wiki/Source%3A-Letterbox-effect-using-a-view
 sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight) {
 
@@ -51,7 +73,7 @@ sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight) {
 int main() {
     auto lastShot = std::chrono::high_resolution_clock::now();
     bool isCooldown = false;
-    std::vector<Enemy*> enemyBuffer;
+    std::vector<Entity*> enemyBuffer;
 
     Enemy* enemy = new Enemy(sf::Vector2f(500,500), 2, "resources/sprites/player.png", 20);
     enemy->lastHit = std::chrono::high_resolution_clock::now();
@@ -136,7 +158,7 @@ int main() {
         }
 
 
-        for(Enemy* enemy: enemyBuffer)
+        for(Entity* enemy: enemyBuffer)
         {
             if(!enemyBuffer.empty()) {
                 enemy->setPosition(500,500);
@@ -159,17 +181,13 @@ int main() {
             bullet->drawEntity(window);
             
             if(!enemyBuffer.empty()) {
-                if(detectCollision(bullet, enemy)) {
-                    //enemyBuffer.erase(std::find(enemyBuffer.begin(), enemyBuffer.end(), enemy));
-                    //delete enemy;
-                    if((std::chrono::high_resolution_clock::now() - enemy->lastHit) > std::chrono::milliseconds(500)) {
-                        enemy->setHealth(enemy->getHealth() - 10);
-                        if(enemy->getHealth() <= 0) {
-                            enemyBuffer.erase(std::find(enemyBuffer.begin(), enemyBuffer.end(), enemy));
-                            delete enemy;
-                        }
-                        enemy->lastHit = std::chrono::high_resolution_clock::now();
+                if(detectCollision(bullet, enemy) && !bullet->hasHitEnemy(enemy)) {
+                    enemy->setHealth(enemy->getHealth() - 2);
+                    if(enemy->getHealth() <= 0) {
+                        enemyBuffer.erase(std::find(enemyBuffer.begin(), enemyBuffer.end(), enemy));
+                        delete enemy;
                     }
+                    bullet->entitiesHit.push_back(enemy);
                 }
             }
         }
@@ -177,6 +195,7 @@ int main() {
         window.setView(view);
         player.setHealthBar();
         player.drawEntity(window);
+        drawDebugText(enemy, window);
         //ndow.draw(player);
         window.display();
     }
