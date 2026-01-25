@@ -24,3 +24,13 @@ Direction InputHandler::getDirection() {
 bool InputHandler::isShooting() {
     return sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
 }
+
+std::vector<sf::Keyboard::Key> InputHandler::getInputs() {
+    std::vector<sf::Keyboard::Key> inputs;
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) inputs.push_back(sf::Keyboard::A);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) inputs.push_back(sf::Keyboard::D);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) inputs.push_back(sf::Keyboard::W);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) inputs.push_back(sf::Keyboard::S);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) inputs.push_back(sf::Keyboard::Space);
+    return inputs;
+}

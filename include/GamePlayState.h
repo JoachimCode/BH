@@ -9,7 +9,7 @@ struct GameplayContext {
     std::vector<std::unique_ptr<Entity>> enemyBuffer;
 };
 
-class GamePlayState : GameState {
+class GamePlayState : public GameState {
     public:
     GamePlayState(GameContext& context);
     void update(float tick);

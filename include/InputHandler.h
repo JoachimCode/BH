@@ -7,6 +7,7 @@ class InputHandler {
     public:
     Direction getDirection();
     bool isShooting();
+    std::vector<sf::Keyboard::Key> getInputs();
 };
 
 
